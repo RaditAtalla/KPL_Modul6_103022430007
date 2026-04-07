@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Modul6_103022430007
@@ -12,6 +13,9 @@ namespace Modul6_103022430007
 
         public SayaMusicUser(string username)
         {
+            Debug.Assert(username != null);
+            Debug.Assert(username.Length <= 100);
+
             this.uploadedTracks = new List<SayaMusicTrack>();
             this.username = username;
 
@@ -33,6 +37,9 @@ namespace Modul6_103022430007
 
         public void AddTrack(SayaMusicTrack track)
         {
+            Debug.Assert(track != null);
+            Debug.Assert(track.GetPlayCount() < int.MaxValue);
+
             uploadedTracks.Add(track);
         }
 
@@ -40,7 +47,9 @@ namespace Modul6_103022430007
         {
             Console.WriteLine("User: " + username);
 
-            for (int i = 0; i < uploadedTracks.Count; i++)
+            int shownNum = uploadedTracks.Count > 8 ? 8 : uploadedTracks.Count;
+
+            for (int i = 0; i < shownNum; i++)
             {
                 Console.WriteLine("Track " + (i+1) + " judul: " + uploadedTracks[i].title);
             }
